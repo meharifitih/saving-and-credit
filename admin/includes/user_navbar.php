@@ -25,6 +25,11 @@
                <i class="fas fa-fw fa-cog"></i>
                <span>Request for Loan </span></a>
        </li>
+       <li class="nav-item">
+           <a class="nav-link" href="loan_details.php">
+               <i class="fas fa-fw fa-cog"></i>
+               <span> Loan Details</span></a>
+       </li>
 
        <li class="nav-item">
            <a class="nav-link" href="loan_payment.php">

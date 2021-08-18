@@ -34,20 +34,27 @@
 
        <li class="nav-item">
            <a class="nav-link" href="deposit.php">
+
                <i class="fas fa-fw fa-cog"></i>
-               <span>Deposite </span></a>
+               <span>Deposite </span>
+           </a>
        </li>
 
        <li class="nav-item">
            <a class="nav-link" href="loan_list.php">
                <i class="fas fa-fw fa-cog"></i>
-               <span>Loans </span></a>
+               <span>Loans list </span></a>
        </li>
 
        <li class="nav-item">
-           <a class="nav-link" href="loan.php">
+           <a class="nav-link" href="loan_plan.php">
                <i class="fas fa-fw fa-cog"></i>
                <span>Loans Type </span></a>
+       </li>
+       <li class="nav-item">
+           <a class="nav-link" href="loan_plan.php">
+               <i class="fas fa-fw fa-cog"></i>
+               <span>saving Type </span></a>
        </li>
 
 

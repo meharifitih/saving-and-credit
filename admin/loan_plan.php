@@ -20,8 +20,8 @@ include('includes/navbar.php');
                 <div class="modal-body">
 
                     <div class="form-group">
-                        <label> Months </label>
-                        <input type="text" name="months" class="form-control" placeholder="Enter Months">
+                        <label> Years </label>
+                        <input type="text" name="months" class="form-control" placeholder="Enter Years">
                     </div>
                     <div class="form-group">
                         <label>interset</label>
@@ -82,8 +82,8 @@ include('includes/navbar.php');
                     <thead>
                         <tr>
                             <th> ID </th>
-                            <th> Months </th>
-                            <th>Interest (%)</th>
+                            <th> Years </th>
+                            <th>Interest per year (%)</th>
                             <th>Penality (%)</th>
                             <th>EDIT </th>
                             <th>DELETE </th>
@@ -100,9 +100,9 @@ include('includes/navbar.php');
 
                         <tr>
                             <td><?php echo $row['id']; ?></td>
-                            <td><?php echo $row['months']; ?></td>
-                            <td><?php echo $row['interset']; ?></td>
-                            <td><?php echo $row['penality']; ?></td>
+                            <td><?php echo $row['months']; ?> Years</td>
+                            <td><?php echo $row['interset']; ?> % interst</td>
+                            <td><?php echo $row['penality']; ?> % penality</td>
 
                             <td>
                                 <form action="loan_edit.php" method="POST">

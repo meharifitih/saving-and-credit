@@ -15,24 +15,18 @@ include('includes/user_navbar.php');
         </div>
 
         <div class="card-body">
-
+            <!-- 
             <?php
-    if (isset($_SESSION['success']) && $_SESSION['success'] != '') {
-     echo '<h2 class="bg-primary text-white">' . $_SESSION['success'] . '</h2>';
-    unset($_SESSION['success']);
-    }
-
-    if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-    echo '<h2 class="bg-danger text-white">' . $_SESSION['status'] . '</h2>';
-    unset($_SESSION['status']);
-    }
-  ?>
+        
+        $name = $_SESSION['username']
+        
+        ?> -->
 
             <div class="table-responsive">
 
                 <?php
                     $connction = mysqli_connect("localhost", "root", "", "adminpanel");
-                    $query = "SELECT * FROM loan_list where id=11";
+                    $query = "SELECT * FROM deposit where memberid='$name'";
                     $query_run = mysqli_query($connction, $query);
 
                     ?>
@@ -42,13 +36,13 @@ include('includes/user_navbar.php');
                         <tr>
                             <th> ID </th>
                             <th> Member </th>
-                            <th>Type of Loan</th>
-                            <th>Mode of Payment</th>
-                            <th>Loan Amount ($)</th>
-                            <th>Duration in Month</th>
-                            <th>Reason</th>
-                            <th>Interest ($)</th>
+                            <th>Interest (per year)</th>
+                            <th>Saving amount ($)</th>
+                            <th>Total deposite ($)</th>
                             <th>Date</th>
+                            <th>Email</th>
+                            <!-- <th>Interest ($)</th>
+                            <th>Date</th> -->
 
 
                         </tr>
@@ -64,14 +58,12 @@ include('includes/user_navbar.php');
 
                         <tr>
                             <td><?php echo $row['id']; ?></td>
-                            <td><?php echo $row['username']; ?></td>
-                            <td><?php echo $row['loan_type_id']; ?></td>
-                            <td><?php echo $row['mode_of_payment']; ?></td>
-                            <td><?php echo $row['loan_amount']; ?></td>
-                            <td><?php echo $row['duration']; ?></td>
-                            <td><?php echo $row['purpose']; ?></td>
+                            <td><?php echo $row['membe_name']; ?></td>
                             <td><?php echo $row['interest']; ?></td>
+                            <td><?php echo $row['savingamount']; ?></td>
+                            <td><?php echo $row['totaldeposite']; ?></td>
                             <td><?php echo $row['date']; ?></td>
+                            <td><?php echo $row['memberid']; ?></td>
 
                         </tr>
 

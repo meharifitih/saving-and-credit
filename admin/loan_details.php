@@ -1,8 +1,9 @@
 <?php
-include ('security.php');
+session_start();
 include('includes/header.php'); 
-include('includes/navbar.php');
+include('includes/user_navbar.php');
 ?>
+
 
 <div class="container-fluid">
 
@@ -46,7 +47,7 @@ include('includes/navbar.php');
                             <th>Loan Amount</th>
                             <th>Duration</th>
                             <th>Purpose</th>
-                            <th>Interest Per year</th>
+                            <th>Interest</th>
                             <th>Status</th>
                             <th>Date</th>
 

@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include('security.php');
 
 if (isset($_POST['registerbtn'])) {
@@ -41,24 +42,29 @@ if (isset($_POST['loan_registerbtn'])) {
         if ($query_run) {
             //echo "Saved";
             $_SESSION['success'] = "Loan type Added";
-            header('location:loan.php');
+            header('location:loan_plan.php');
         } else {
             $_SESSION['status'] = "Loan Type Not Added";
-            header('location:loan.php');
+            header('location:loan_plan.php');
         }
     } else {
         $_SESSION['status'] = "Password Does Not Match";
-        header('location:loan.php');
+        header('location:loan_plan.php');
     }
 }
 
-$new = $_SESSION['username'];
+
 
 
 if (isset($_POST['add_saving'])) {
 
-    $from_table = "SELECT * from user where email=$new";
+    // $email = $_SESSION['username'];
     $user = $_POST['user'];
+    $query = "SELECT email  FROM user WHERE username='$user' ";
+    $query_run = mysqli_query($connction, $query);
+    foreach ($query_run as $row) {
+        $memberid = $row['email'];
+    }
     $amount = $_POST['amount'];
     $userid = $row['id'];
     $interest = $amount * 0.07;
@@ -67,7 +73,7 @@ if (isset($_POST['add_saving'])) {
     if (true) {
 
 
-        $query = "INSERT INTO deposit (membe_name,interest,savingamount,totaldeposite,memberid) VALUES('$user','$interest','$amount','$total_depo', '$userid')";
+        $query = "INSERT INTO deposit (membe_name,interest,savingamount,totaldeposite,memberid) VALUES('$user','$interest','$amount','$total_depo', '$memberid')";
         $query_run = mysqli_query($connction, $query);
         if ($query_run) {
             //echo "Saved";
@@ -180,10 +186,10 @@ if (isset($_POST['loan_updatebtn'])) {
 
     if ($query_run) {
         $_SESSION['success'] = "Your Data is Updated";
-        header('location:loan.php');
+        header('location:loan_plan.php');
     } else {
         $_SESSION['status'] = "Your Data is Not Updated";
-        header('location:loan.php');
+        header('location:loan_plan.php');
     }
 }
 
@@ -206,10 +212,10 @@ if (isset($_POST['loan_deletebtn'])) {
     $query_run = mysqli_query($connction, $query);
     if ($query_run) {
         $_SESSION['success'] = "Your Data is DELETED";
-        header('location:loan.php');
+        header('location:loan_plan.php');
     } else {
         $_SESSION['status'] = "Your Data is  Not DELETED";
-        header('location:loan.php');
+        header('location:loan_plan.php');
     }
 }
 

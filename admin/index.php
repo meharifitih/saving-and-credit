@@ -31,7 +31,7 @@ include('includes/navbar.php');
 
                                 <?php
                                 require 'database/dbconfig.php';
-                                $query = "SELECT id FROM register ORDER BY id ";
+                                $query = "SELECT id FROM user where type='user' ORDER BY id ";
                                 $query_run = mysqli_query($connction, $query);
                                 $row = mysqli_num_rows($query_run);
                                 echo '<h4>' . $row . '</h4>';
@@ -98,9 +98,18 @@ include('includes/navbar.php');
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total Loan
+                                Application
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <?php
+                                require 'database/dbconfig.php';
+                                $query = "SELECT id FROM loan_list ORDER BY id ";
+                                $query_run = mysqli_query($connction, $query);
+                                $row = mysqli_num_rows($query_run);
+                                echo '<h4>' . $row . '</h4>';
+                                ?>
+                            </div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-comments fa-2x text-gray-300"></i>

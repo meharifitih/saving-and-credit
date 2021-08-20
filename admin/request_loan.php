@@ -9,6 +9,19 @@ include('includes/user_navbar.php');
     <div class="card card-primary">
         <form action="code.php" method="POST">
             <div class="card-header py-3">
+
+                <?php
+    if (isset($_SESSION['success']) && $_SESSION['success'] != '') {
+     echo '<h2 class="bg-primary text-white">' . $_SESSION['success'] . '</h2>';
+    unset($_SESSION['success']);
+    }
+
+    if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
+    echo '<h2 class="bg-danger text-white">' . $_SESSION['status'] . '</h2>';
+    unset($_SESSION['status']);
+    }
+  ?>
+
                 <h4 class="card-header py-3">Send Application</h4>
                 <!-- <div class="card-header py-3">
                     
@@ -18,15 +31,7 @@ include('includes/user_navbar.php');
                     <div class="card-body">
                         <div class="row">
 
-                            <div class="col-6">
 
-                                <div class="form-group">
-
-                                    <label for="exampleInputEmail1">Member</label>
-                                    <input type="text" class="form-control" name="user" value=""
-                                        placeholder="Enter Your Name..">
-                                </div>
-                            </div>
 
                             <div class="col-6">
 

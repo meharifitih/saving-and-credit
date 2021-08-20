@@ -20,16 +20,16 @@
        <!-- Divider -->
        <hr class="sidebar-divider">
 
-       <li class="nav-item">
+       <!-- <li class="nav-item">
            <a class="nav-link" href="register.php">
                <i class="fas fa-fw fa-cog"></i>
                <span>Amin profile </span></a>
-       </li>
+       </li> -->
 
        <li class="nav-item">
            <a class="nav-link" href="manage_users.php">
                <i class="fas fa-fw fa-cog"></i>
-               <span>Add Users </span></a>
+               <span>Users Profile </span></a>
        </li>
 
        <li class="nav-item">
@@ -37,6 +37,14 @@
 
                <i class="fas fa-fw fa-cog"></i>
                <span>Deposite </span>
+           </a>
+       </li>
+
+       <li class="nav-item">
+           <a class="nav-link" href="members_deposite.php">
+
+               <i class="fas fa-fw fa-cog"></i>
+               <span>Members Saving </span>
            </a>
        </li>
 

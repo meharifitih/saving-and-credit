@@ -92,7 +92,15 @@ if (isset($_POST['add_saving'])) {
 
 
 if (isset($_POST['application'])) {
-    $name = $_POST['user'];
+    $memid = $_SESSION['username'];
+
+    $query = "SELECT username  FROM user WHERE email='$memid' ";
+    $query_run = mysqli_query($connction, $query);
+    foreach ($query_run as $row) {
+        $name = $row['username'];
+    }
+
+    // $name = $_POST['user'];
     $loan_type = $_POST['loan_type'];
     $payment_mode = $_POST['payment_mode'];
     $amount = $_POST['amount'];
@@ -100,12 +108,13 @@ if (isset($_POST['application'])) {
     $purpose = $_POST['purpose'];
     $interest = $amount*0.08;
     $status = $_POST['request'];
+   
  
    
     if (true) {
 
 
-        $query = "INSERT INTO loan_list (username,loan_type_id,mode_of_payment,loan_amount,duration,purpose,interest,status) VALUES('$name','$loan_type','$payment_mode', '$amount', '$duration', '$purpose', '$interest','$status')";
+        $query = "INSERT INTO loan_list (username,loan_type_id,mode_of_payment,loan_amount,duration,purpose,interest,status,memberid) VALUES('$name','$loan_type','$payment_mode', '$amount', '$duration', '$purpose', '$interest','$status','$memid')";
         $query_run = mysqli_query($connction, $query);
         if ($query_run) {
             //echo "Saved";
@@ -125,6 +134,13 @@ if (isset($_POST['edit_btn'])) {
     $id = $_POST['edit_id'];
 
     $query = "SELECT * FROM register WHERE id='$id' ";
+    $query_run = mysqli_query($connction, $query);
+}
+
+if (isset($_POST['status_edit_btn'])) {
+    $id = $_POST['edit_id'];
+
+    $query = "SELECT * FROM loan_list WHERE id='$id' ";
     $query_run = mysqli_query($connction, $query);
 }
 
@@ -193,16 +209,34 @@ if (isset($_POST['loan_updatebtn'])) {
     }
 }
 
+
+if (isset($_POST['loan_status_btn'])){
+$id = $_POST['edit_id'];
+$status = $_POST['loan_status'];
+$query = "UPDATE loan_list set status='$status' where id='$id' "; 
+$query_run = mysqli_query($connction, $query);
+
+ if ($query_run) {
+        $_SESSION['success'] = "Status is Updated";
+        header('location:loan_list.php');
+    } else {
+        $_SESSION['status'] = "Status is Not Updated";
+        header('location:loan_list.php');
+    }
+    
+}
+
+
 if (isset($_POST['deletebtn'])) {
     $id = $_POST['delete_id'];
-    $query = "DELETE FROM register WHERE id='$id' ";
+    $query = "DELETE FROM user WHERE id='$id' ";
     $query_run = mysqli_query($connction, $query);
     if ($query_run) {
         $_SESSION['success'] = "Your Data is DELETED";
-        header('location:register.php');
+        header('location:manage_users.php');
     } else {
         $_SESSION['status'] = "Your Data is  Not DELETED";
-        header('location:register.php');
+        header('location:manage_users.php');
     }
 }
 

@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('includes/header.php'); 
-include('includes/user_navbar.php');
+include('includes/navbar.php');
 ?>
 
 
@@ -26,7 +26,7 @@ include('includes/user_navbar.php');
 
                 <?php
                     $connction = mysqli_connect("localhost", "root", "", "adminpanel");
-                    $query = "SELECT * FROM deposit where memberid='$name'";
+                    $query = "SELECT * FROM deposit";
                     $query_run = mysqli_query($connction, $query);
 
                     ?>
@@ -57,7 +57,7 @@ include('includes/user_navbar.php');
 
 
                         <tr>
-                            <td><?php echo $row['id']; ?></td>
+                            <td><?php echo $row['id'];?></td>
                             <td><?php echo $row['membe_name']; ?></td>
                             <td><?php echo $row['interest']; ?></td>
                             <td><?php echo $row['savingamount']; ?></td>
@@ -82,6 +82,7 @@ include('includes/user_navbar.php');
     </div>
 
 </div>
+
 
 
 <?php

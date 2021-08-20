@@ -31,8 +31,9 @@ include('includes/user_navbar.php');
             <div class="table-responsive">
 
                 <?php
+                     $memid = $_SESSION['username'];
                     $connction = mysqli_connect("localhost", "root", "", "adminpanel");
-                    $query = "SELECT * FROM loan_list";
+                    $query = "SELECT * FROM loan_list where memberid='$memid'";
                     $query_run = mysqli_query($connction, $query);
 
                     ?>
@@ -45,10 +46,11 @@ include('includes/user_navbar.php');
                             <th>Type of Loan</th>
                             <th>Mode of Payment</th>
                             <th>Loan Amount</th>
+                            <th>Interest</th>
                             <th>Duration</th>
                             <th>Purpose</th>
-                            <th>Interest</th>
                             <th>Status</th>
+                            <th>Email</th>
                             <th>Date</th>
 
 
@@ -68,15 +70,22 @@ include('includes/user_navbar.php');
                             <td><?php echo $row['username']; ?></td>
                             <td><?php echo $row['loan_type_id']; ?></td>
                             <td><?php echo $row['mode_of_payment']; ?></td>
-                            <td><?php echo $row['loan_amount']; ?></td>
-                            <td><?php echo $row['duration']; ?></td>
+                            <td><b style="color: blue"><?php echo $row['loan_amount']; ?>$</b></td>
+                            <td><b style="color: blue"><?php echo $row['interest']; ?>$</b></td>
+                            <td><?php echo $row['duration']; ?> Months</td>
                             <td><?php echo $row['purpose']; ?></td>
-                            <td><?php echo $row['interest']; ?></td>
-                            <td><select name="">
-                                    <option value="">
-                                        <?php echo $row['status']; ?>
-                                    </option>
-                                </select></td>
+                            <td>
+                                <?php if($row['status'] == "For Approval"): ?>
+                                <span class="badge badge-warning">For Approval</span>
+                                <?php elseif($row['status'] == "Approved"): ?>
+                                <span class="badge badge-info">Approved</span>
+                                <?php elseif($row['status'] == "Completed"): ?>
+                                <span class="badge badge-success">Completed</span>
+                                <?php elseif($row['status'] == "Denied"): ?>
+                                <span class="badge badge-danger">Denied</span>
+                                <?php endif; ?>
+                            </td>
+                            <td><?php echo $row['memberid']; ?></td>
                             <td><?php echo $row['date']; ?></td>
 
                         </tr>

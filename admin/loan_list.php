@@ -4,6 +4,7 @@ include('includes/header.php');
 include('includes/navbar.php');
 ?>
 
+
 <div class="container-fluid">
 
     <!-- DataTales Example -->
@@ -41,14 +42,16 @@ include('includes/navbar.php');
                         <tr>
                             <th> ID </th>
                             <th> Member </th>
-                            <th>Type of Loan</th>
-                            <th>Mode of Payment</th>
-                            <th>Loan Amount</th>
+                            <th>Loan Type</th>
+                            <th>Payment Mode</th>
+                            <th>Loan Amount($)</th>
                             <th>Duration</th>
                             <th>Purpose</th>
-                            <th>Interest Per year</th>
+                            <th>Interest(Per year)$</th>
                             <th>Status</th>
+                            <th>Email</th>
                             <th>Date</th>
+                            <th>Action</th>
 
 
                         </tr>
@@ -71,12 +74,30 @@ include('includes/navbar.php');
                             <td><?php echo $row['duration']; ?></td>
                             <td><?php echo $row['purpose']; ?></td>
                             <td><?php echo $row['interest']; ?></td>
-                            <td><select name="">
-                                    <option value="">
-                                        <?php echo $row['status']; ?>
-                                    </option>
-                                </select></td>
+                            <td>
+                                <?php if($row['status'] == "For Approval"): ?>
+                                <span class="badge badge-warning">For Approval</span>
+                                <?php elseif($row['status'] == "Approved"): ?>
+                                <span class="badge badge-info">Approved</span>
+                                <?php elseif($row['status'] == "Completed"): ?>
+                                <span class="badge badge-success">Completed</span>
+                                <?php elseif($row['status'] == "Denied"): ?>
+                                <span class="badge badge-danger">Denied</span>
+                                <?php endif; ?>
+                            </td>
+
+                            <td><?php echo $row['memberid']; ?></td>
                             <td><?php echo $row['date']; ?></td>
+                            <td>
+
+
+                                <form action="loan_handdling.php" method="POST">
+                                    <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
+                                    <button type="submit" name="status_edit_btn" class="btn btn-success">Manage</button>
+                                </form>
+
+                            </td>
+
 
                         </tr>
 
@@ -95,6 +116,63 @@ include('includes/navbar.php');
     </div>
 
 </div>
+
+
+<div class="modal fade" id="modifyloan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modify Loan status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="code.php" method="POST">
+
+                <div class="modal-body">
+
+                    <?php
+                    $connction = mysqli_connect("localhost", "root", "", "adminpanel");
+                    $query = "SELECT * FROM loan_list";
+                    $query_run = mysqli_query($connction, $query);
+                    if (mysqli_num_rows($query_run) > 0) {
+                                while ($row = mysqli_fetch_assoc($query_run)) {
+                    ?>
+
+                    <div class="form-group">
+
+                        <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
+
+                        <?php
+                                }
+                            } else {
+                                echo "No Record Found";
+                            }
+
+                            ?>
+
+                        <label> Status </label>
+                        <select name="loan_status">
+                            <option>For Approval</option>
+                            <option>Approved</option>
+                            <option>Completed</option>
+                            <option>Denied</option>
+                        </select>
+                        <!-- <input type="text" name="status" class="form-control" placeholder="Enter Username"> -->
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" name="loan_status_btn" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
 
 
 <?php

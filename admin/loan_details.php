@@ -47,6 +47,7 @@ include('includes/user_navbar.php');
                             <th>Mode of Payment</th>
                             <th>Loan Amount</th>
                             <th>Total to Pay</th>
+                            <th>Monthly to Pay</th>
                             <th>Duration</th>
                             <th>Purpose</th>
                             <th>Status</th>
@@ -72,6 +73,11 @@ include('includes/user_navbar.php');
                             <td><?php echo $row['mode_of_payment']; ?></td>
                             <td><b style="color: blue"><?php echo $row['loan_amount']; ?>$</b></td>
                             <td><b style="color: blue"><?php echo $row['total_to_pay']; ?>$</b></td>
+                            <td><b style="color: blue"><?php
+                             $total = $row['total_to_pay'];
+                            $duration_in_months = $row['duration'] * 12;
+                            $pay_in_month = $total / $duration_in_months;
+                             echo ($pay_in_month); ?>$</b></td>
                             <td><?php echo $row['duration']; ?> Years</td>
                             <td><?php echo $row['purpose']; ?></td>
                             <td>

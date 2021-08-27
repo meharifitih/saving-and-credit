@@ -1,5 +1,5 @@
 <?php 
-session_start();
+// session_start();
 include('security.php');
 
 if (isset($_POST['registerbtn'])) {
@@ -28,6 +28,31 @@ if (isset($_POST['registerbtn'])) {
     }
 }
 
+
+if (isset($_POST['info_save'])) {
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+    
+   
+    if (true) {
+
+        $query = "INSERT INTO info (title,description) VALUES('$title','$description')";
+        $query_run = mysqli_query($connction, $query);
+        if ($query_run) {
+            
+            $_SESSION['success'] = "News Added";
+            header('location:info.php');
+        } else {
+            $_SESSION['status'] = "User Not Added";
+            header('location:info.php');
+        }
+    } else {
+        $_SESSION['status'] = "Password Does Not Match";
+        header('location:info.php');
+    }
+}
+
+
 if (isset($_POST['loan_registerbtn'])) {
     $months = $_POST['months'];
     $interest = $_POST['interest'];
@@ -55,6 +80,56 @@ if (isset($_POST['loan_registerbtn'])) {
 
 
 
+if(isset($_POST['pay'])){
+    $user = $_POST['user'];
+    $amount = $_POST['amount'];
+      $query = "SELECT *  FROM loan_list WHERE username='$user' ";
+    $query_run = mysqli_query($connction, $query);
+    foreach ($query_run as $row) {
+        $loan_id = $row['id'];
+        $total = $row['total_to_pay'];
+        $email = $row['memberid'];
+    }
+    
+    $query = "SELECT remaning  FROM payments where email='$email' ";
+    $query_run = mysqli_query($connction, $query);
+    foreach ($query_run as $row) {
+        $remain_from_db = $row['remaning'];
+    }
+
+    $rem = 0 + $remain_from_db; 
+    if ($rem==0){
+        $remaning = $total - $amount;
+    }else {
+        $remaning = $rem - $amount;
+    }
+    
+    if (true) {
+        $query = "INSERT INTO payments (loan_id,payee,total_to_pay,amount,remaning,email) VALUES('$loan_id','$user','$total','$amount','$remaning','$email')";
+        $query_run = mysqli_query($connction, $query);  
+
+          if ($query_run) {
+            //echo "Saved";
+            $_SESSION['success'] = "Payment Added";
+            header('location:loan_payment.php');
+            if($remaning == 0){
+                $query = "UPDATE loan_list SET status='Completed'WHERE id='$loan_id' ";
+                $query_run = mysqli_query($connction, $query); 
+            }
+            else {
+                echo 'hi';
+            }
+        } else {
+            $_SESSION['status'] = "Payment Not Added";
+            header('location:loan_payment.php');
+        }
+    }  else {
+        $_SESSION['status'] = "Password Does Not Match";
+        header('location:loan_payment.php');
+    }
+
+}
+
 
 if (isset($_POST['add_saving'])) {
 
@@ -66,9 +141,18 @@ if (isset($_POST['add_saving'])) {
         $memberid = $row['email'];
     }
     $amount = $_POST['amount'];
-    $userid = $row['id'];
-    $interest = $amount * 0.07;
-    $total_depo = $amount ;
+    // $userid = $row['id'];
+
+$query = "SELECT totaldeposite  FROM deposit where memberid='$memberid' ";
+    $query_run = mysqli_query($connction, $query);
+    foreach ($query_run as $row) {
+        $total_from_db = $row['totaldeposite'];
+    }
+
+    $tot = 0 + $total_from_db;
+    $total_depo =$tot + $amount;
+    $interest = $total_depo * 0.07;
+
  
     if (true) {
 
@@ -96,32 +180,33 @@ if (isset($_POST['application'])) {
 
     $query = "SELECT username  FROM user WHERE email='$memid' ";
     $query_run = mysqli_query($connction, $query);
-    foreach ($query_run as $row) {
+    foreach ($query_run as $row) { 
         $name = $row['username'];
     }
-
-    // $name = $_POST['user'];
+   
     $loan_type = $_POST['loan_type'];
     $payment_mode = $_POST['payment_mode'];
     $amount = $_POST['amount'];
     $duration = $_POST['duration'];
     $purpose = $_POST['purpose'];
-    $interest = $amount*0.08;
     $status = $_POST['request'];
+    
+    // correct loan calculayion
+    for ($i=1; $i <= $duration; $i++) { 
+        $int = $amount;
+        $total = $int * pow(1.08, $i);
    
- 
+    }
    
     if (true) {
-
-
-        $query = "INSERT INTO loan_list (username,loan_type_id,mode_of_payment,loan_amount,duration,purpose,interest,status,memberid) VALUES('$name','$loan_type','$payment_mode', '$amount', '$duration', '$purpose', '$interest','$status','$memid')";
+        $query = "INSERT INTO loan_list (username,loan_type,mode_of_payment,loan_amount,duration,total_to_pay,purpose,status,memberid) VALUES('$name','$loan_type','$payment_mode', '$amount', '$duration', '$total', '$purpose','$status','$memid')";
         $query_run = mysqli_query($connction, $query);
         if ($query_run) {
             //echo "Saved";
             $_SESSION['success'] = "Loan  Application Sent";
             header('location:request_loan.php');
         } else {
-            $_SESSION['status'] = "Loan Not Sent";
+            $_SESSION['status'] = "Loan Application Not Sent";
             header('location:request_loan.php');
         }
     } else {
@@ -137,12 +222,12 @@ if (isset($_POST['edit_btn'])) {
     $query_run = mysqli_query($connction, $query);
 }
 
-if (isset($_POST['status_edit_btn'])) {
-    $id = $_POST['edit_id'];
+// if (isset($_POST['status_edit_btn'])) {
+//     $id = $_POST['edit_id'];
 
-    $query = "SELECT * FROM loan_list WHERE id='$id' ";
-    $query_run = mysqli_query($connction, $query);
-}
+//     $query = "SELECT * FROM loan_list WHERE id='$id' ";
+//     $query_run = mysqli_query($connction, $query);
+// }
 
 if (isset($_POST['loan_edit_btn'])) {
     $id = $_POST['edit_id'];
@@ -226,6 +311,40 @@ $query_run = mysqli_query($connction, $query);
     
 }
 
+
+// ##########################################
+
+// if(isset($_POST['loan_status_btn'])){
+//     $memid = $_SESSION['username'];
+//     $query = "SELECT loan_amount from loan_list where memberid='$memid' "; 
+//     $query_run = mysqli_query($connction, $query);
+//     foreach ($query_run as $row) {
+//         $loan_amount = $row['loan_amount'];
+//         $loan_status = $row['status'];
+//     }
+
+//     $id = $_POST['edit_id'];
+//     // $status = $_POST['loan_status']; 
+//     $status = loan_status; 
+  
+//     if($status ="Approved"){
+
+//          $query = "SELECT totaldeposite from deposite where id='$id' ";   
+//         $query_run = mysqli_query($connction, $query);
+//         foreach ($query_run as $row) {
+//         $depo_add = $row['totaldeposite'];
+//     }
+
+//     $total = $total_depo + $depo_add;
+
+//         $query = "UPDATE deposite set totaldeposite='$total' where memberid='$memid'";   
+//         $query_run = mysqli_query($connction, $query);
+    
+//   }
+  
+// }
+
+// ###############################################
 
 if (isset($_POST['deletebtn'])) {
     $id = $_POST['delete_id'];

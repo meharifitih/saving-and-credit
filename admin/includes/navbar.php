@@ -55,14 +55,20 @@
        </li>
 
        <li class="nav-item">
+           <a class="nav-link" href="loan_payment.php">
+               <i class="fas fa-fw fa-cog"></i>
+               <span>Loans Payment </span></a>
+       </li>
+
+       <li class="nav-item">
            <a class="nav-link" href="loan_plan.php">
                <i class="fas fa-fw fa-cog"></i>
                <span>Loans Type </span></a>
        </li>
        <li class="nav-item">
-           <a class="nav-link" href="loan_plan.php">
+           <a class="nav-link" href="info.php">
                <i class="fas fa-fw fa-cog"></i>
-               <span>saving Type </span></a>
+               <span>Add Information</span></a>
        </li>
 
 

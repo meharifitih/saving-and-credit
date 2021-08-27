@@ -22,7 +22,7 @@ include('includes/user_navbar.php');
     }
   ?>
 
-                <h4 class="card-header py-3">Send Application</h4>
+                <h4 class="card-header py-3">Loan Application</h4>
                 <!-- <div class="card-header py-3">
                     
 
@@ -50,7 +50,7 @@ include('includes/user_navbar.php');
                                     while ($row = mysqli_fetch_assoc($query_run)) {
                                     ?>
                                         <option>
-                                            <?php echo $row['id']; 
+                                            <?php echo $row['type_name']; 
                                             
                                                 }
                                         } else {
@@ -66,15 +66,20 @@ include('includes/user_navbar.php');
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Payment</label>
-                                    <input type="text" name="payment_mode" class="form-control"
-                                        placeholder="Enter Mode Payment ..">
+                                    <label for="exampleInputEmail1">Payment Mode</label>
+                                    <!-- <input type="text" name="payment_mode" class="form-control"
+                                        placeholder="Enter Mode Payment .."> -->
+                                    <select name="payment_mode" class="form-control">
+                                        <option>From Salary</option>
+                                        <option>Cash</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Amount</label>
-                                    <input type="text" class="form-control" name="amount" placeholder="00.00">
+                                    <input type="text" class="form-control" name="amount"
+                                        placeholder="Maximum 400,000,000">
                                 </div>
                             </div>
 
@@ -89,16 +94,23 @@ include('includes/user_navbar.php');
 
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Duration</label>
-                                    <input type="text" class="form-control" name="duration"
-                                        placeholder="Enter Loan Duration in Months ..">
+                                    <label for="exampleInputEmail1">Duration In Years</label>
+                                    <!-- <input type="text" class="form-control" name="duration"
+                                        placeholder="Enter Loan Duration in Years .."> -->
+                                    <select name="duration" class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Purpose</label>
-                                    <input type="text" class="form-control" name="purpose"
-                                        placeholder="Enter Purpose ..">
+                                    <textarea type="text" class="form-control" name="purpose"
+                                        placeholder="Enter the reason for loan .."></textarea>
                                 </div>
                             </div>
 

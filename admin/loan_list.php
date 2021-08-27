@@ -47,7 +47,7 @@ include('includes/navbar.php');
                             <th>Loan Amount($)</th>
                             <th>Duration</th>
                             <th>Purpose</th>
-                            <th>Interest(Per year)$</th>
+                            <th>Total to Pay($)</th>
                             <th>Status</th>
                             <th>Email</th>
                             <th>Date</th>
@@ -68,12 +68,12 @@ include('includes/navbar.php');
                         <tr>
                             <td><?php echo $row['id']; ?></td>
                             <td><?php echo $row['username']; ?></td>
-                            <td><?php echo $row['loan_type_id']; ?></td>
+                            <td><?php echo $row['loan_type']; ?></td>
                             <td><?php echo $row['mode_of_payment']; ?></td>
                             <td><?php echo $row['loan_amount']; ?></td>
                             <td><?php echo $row['duration']; ?></td>
                             <td><?php echo $row['purpose']; ?></td>
-                            <td><?php echo $row['interest']; ?></td>
+                            <td><?php echo $row['total_to_pay']; ?></td>
                             <td>
                                 <?php if($row['status'] == "For Approval"): ?>
                                 <span class="badge badge-warning">For Approval</span>

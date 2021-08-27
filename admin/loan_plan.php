@@ -21,7 +21,14 @@ include('includes/navbar.php');
 
                     <div class="form-group">
                         <label> Years </label>
-                        <input type="text" name="months" class="form-control" placeholder="Enter Years">
+                        <!-- <input type="text" name="months" class="form-control" placeholder="Enter Years"> -->
+                        <select name="months" class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>interset</label>

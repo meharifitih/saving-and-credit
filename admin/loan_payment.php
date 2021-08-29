@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('includes/header.php'); 
-include('includes/navbar.php');
+include('includes/acc_navbar.php');
 ?>
 
 <div class="card shadow mb-4">
@@ -9,6 +9,18 @@ include('includes/navbar.php');
         <form action="code.php" method="POST">
             <div class="card-header py-3">
                 <h4>Loan Payment</h4>
+
+                <?php
+    if (isset($_SESSION['success']) && $_SESSION['success'] != '') {
+     echo '<h2 class="bg-primary text-white">' . $_SESSION['success'] . '</h2>';
+    unset($_SESSION['success']);
+    }
+
+    if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
+    echo '<h2 class="bg-danger text-white">' . $_SESSION['status'] . '</h2>';
+    unset($_SESSION['status']);
+    }
+  ?>
 
                 <div class="card card-primary">
                     <div class="card-body">

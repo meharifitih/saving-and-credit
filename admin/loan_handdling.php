@@ -24,7 +24,6 @@ include('includes/navbar.php');
 
                 $query = "SELECT * FROM loan_list WHERE id='$id' ";
                 $query_run = mysqli_query($connction, $query);
-
                 foreach ($query_run as $row) {
                     ?>
 

@@ -32,13 +32,13 @@
                <span>Users Profile </span></a>
        </li>
 
-       <li class="nav-item">
+       <!-- <li class="nav-item">
            <a class="nav-link" href="deposit.php">
 
                <i class="fas fa-fw fa-cog"></i>
                <span>Deposite </span>
            </a>
-       </li>
+       </li> -->
 
        <li class="nav-item">
            <a class="nav-link" href="members_deposite.php">
@@ -51,24 +51,31 @@
        <li class="nav-item">
            <a class="nav-link" href="loan_list.php">
                <i class="fas fa-fw fa-cog"></i>
-               <span>Loans list </span></a>
+               <span>Loans Request </span></a>
        </li>
 
-       <li class="nav-item">
+       <!-- <li class="nav-item">
            <a class="nav-link" href="loan_payment.php">
                <i class="fas fa-fw fa-cog"></i>
                <span>Loans Payment </span></a>
-       </li>
+       </li> -->
 
        <li class="nav-item">
            <a class="nav-link" href="loan_plan.php">
                <i class="fas fa-fw fa-cog"></i>
                <span>Loans Type </span></a>
        </li>
+
+       <li class="nav-item">
+           <a class="nav-link" href="view_feedback.php">
+               <i class="fas fa-fw fa-cog"></i>
+               <span>View Feedback</span></a>
+       </li>
+
        <li class="nav-item">
            <a class="nav-link" href="info.php">
                <i class="fas fa-fw fa-cog"></i>
-               <span>Add Information</span></a>
+               <span>Information Setting</span></a>
        </li>
 
 

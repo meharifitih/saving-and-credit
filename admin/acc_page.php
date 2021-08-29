@@ -1,8 +1,7 @@
 <?php 
 include('security.php');
 include('includes/header.php');
-include('includes/user_navbar.php');
-
+include('includes/acc_navbar.php');
 ?>
 
 <div class="card shadow mb-4">

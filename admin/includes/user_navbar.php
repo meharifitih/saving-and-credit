@@ -45,6 +45,12 @@
        </li>
 
        <li class="nav-item">
+           <a class="nav-link" href="feedback.php">
+               <i class="fas fa-fw fa-cog"></i>
+               <span>Send Feedback </span></a>
+       </li>
+
+       <li class="nav-item">
            <a class="nav-link" href="update_user.php">
                <i class="fas fa-fw fa-cog"></i>
                <span> Update Profile </span></a>

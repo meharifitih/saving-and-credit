@@ -9,9 +9,7 @@ if (isset($_POST['registerbtn'])) {
     $cpassword = $_POST['confirmpassword'];
     $type = $_POST['type'];
    
-    if ($password === $cpassword) {
-
-
+    if ($password === $cpassword && $email != "" && $username != "") {
         $query = "INSERT INTO user (username,email,password,type) VALUES('$username','$email','$password', '$type')";
         $query_run = mysqli_query($connction, $query);
         if ($query_run) {
@@ -23,7 +21,7 @@ if (isset($_POST['registerbtn'])) {
             header('location:manage_users.php');
         }
     } else {
-        $_SESSION['status'] = "Password Does Not Match";
+        $_SESSION['status'] = "Fill the form correctly!";
         header('location:manage_users.php');
     }
 }
@@ -34,7 +32,7 @@ if (isset($_POST['info_save'])) {
     $description = $_POST['description'];
     
    
-    if (true) {
+    if ($title != "" && $description != "") {
 
         $query = "INSERT INTO info (title,description) VALUES('$title','$description')";
         $query_run = mysqli_query($connction, $query);
@@ -43,12 +41,43 @@ if (isset($_POST['info_save'])) {
             $_SESSION['success'] = "News Added";
             header('location:info.php');
         } else {
-            $_SESSION['status'] = "User Not Added";
+            $_SESSION['status'] = "News Not Added";
             header('location:info.php');
         }
     } else {
-        $_SESSION['status'] = "Password Does Not Match";
+        $_SESSION['status'] = "Please fill the required data!";
         header('location:info.php');
+    }
+}
+
+
+if (isset($_POST['feedback_send'])) {
+
+     $memid = $_SESSION['username'];
+
+    $query = "SELECT username  FROM user WHERE email='$memid' ";
+    $query_run = mysqli_query($connction, $query);
+    foreach ($query_run as $row) { 
+        $name = $row['username'];
+    }
+    
+    $comment = $_POST['comment'];
+   
+    if ($comment != "") {
+
+        $query = "INSERT INTO feedback (user,comment) VALUES('$name','$comment')";
+        $query_run = mysqli_query($connction, $query);
+        if ($query_run) {
+            
+            $_SESSION['success'] = "Feedback Added";
+            header('location:feedback.php');
+        } else {
+            $_SESSION['status'] = "Feedback Not Added";
+            header('location:feedback.php');
+        }
+    } else {
+        $_SESSION['status'] = "Comment is Empty";
+        header('location:feedback.php');
     }
 }
 
@@ -59,7 +88,7 @@ if (isset($_POST['loan_registerbtn'])) {
     $penality = $_POST['penality'];
     // $cpassword = $_POST['confirmpassword'];
    
-    if (true) {
+    if ($months != "" && $interest != "" && $penality != "") {
 
 
         $query = "INSERT INTO loan_plan (months,interset,penality) VALUES('$months','$interest','$penality')";
@@ -73,7 +102,7 @@ if (isset($_POST['loan_registerbtn'])) {
             header('location:loan_plan.php');
         }
     } else {
-        $_SESSION['status'] = "Password Does Not Match";
+        $_SESSION['status'] = "Fill the required items";
         header('location:loan_plan.php');
     }
 }
@@ -82,7 +111,7 @@ if (isset($_POST['loan_registerbtn'])) {
 
 if(isset($_POST['pay'])){
     $user = $_POST['user'];
-    $amount = $_POST['amount'];
+    $amount = floatval($_POST['amount']);
       $query = "SELECT *  FROM loan_list WHERE username='$user' ";
     $query_run = mysqli_query($connction, $query);
     foreach ($query_run as $row) {
@@ -104,7 +133,7 @@ if(isset($_POST['pay'])){
         $remaning = $rem - $amount;
     }
     
-    if (true) {
+    if ($amount != "" && $amount != 0) {
         $query = "INSERT INTO payments (loan_id,payee,total_to_pay,amount,remaning,email) VALUES('$loan_id','$user','$total','$amount','$remaning','$email')";
         $query_run = mysqli_query($connction, $query);  
 
@@ -124,7 +153,7 @@ if(isset($_POST['pay'])){
             header('location:loan_payment.php');
         }
     }  else {
-        $_SESSION['status'] = "Password Does Not Match";
+        $_SESSION['status'] = "Please enter amount";
         header('location:loan_payment.php');
     }
 
@@ -140,7 +169,7 @@ if (isset($_POST['add_saving'])) {
     foreach ($query_run as $row) {
         $memberid = $row['email'];
     }
-    $amount = $_POST['amount'];
+    $amount = floatval($_POST['amount']);
     // $userid = $row['id'];
 
 $query = "SELECT totaldeposite  FROM deposit where memberid='$memberid' ";
@@ -152,14 +181,51 @@ $query = "SELECT totaldeposite  FROM deposit where memberid='$memberid' ";
     $tot = 0 + $total_from_db;
     $total_depo =$tot + $amount;
     $interest = $total_depo * 0.07;
-
  
-    if (true) {
-
+    if ($amount != "" && $amount != 0) {
 
         $query = "INSERT INTO deposit (membe_name,interest,savingamount,totaldeposite,memberid) VALUES('$user','$interest','$amount','$total_depo', '$memberid')";
         $query_run = mysqli_query($connction, $query);
         if ($query_run) {
+            //echo "Saved";
+            $_SESSION['success'] = "Saving Added";
+            header('location:deposit.php');
+        } else {
+            $_SESSION['status'] = "Saving Not Added";
+            header('location:deposit.php');
+        }
+    } else {
+        $_SESSION['status'] = "Please enter amount";
+        header('location:deposit.php');
+    }
+}
+
+// #######################################
+if (isset($_POST['loan_status_btn'])){
+$id = $_POST['edit_id'];
+$q = "SELECT * from loan_list where id='$id'";
+$q_run = mysqli_query($connction, $q);
+foreach ($q_run as $row) {
+        $user= $row['username'];
+        $amount = $row['loan_amount'];
+        $memberid = $row['memberid'];
+    }
+
+$query = "SELECT totaldeposite  FROM deposit where memberid='$memberid' ";
+    $query_run = mysqli_query($connction, $query);
+    foreach ($query_run as $row) {
+        $total_from_db = $row['totaldeposite'];
+    }
+  
+    $tot = 0 + $total_from_db;
+    $total_depo =$tot + $amount;
+    $interest = $total_depo * 0.07;
+
+$status = $_POST['loan_status'];
+if ($status =="Approved"){
+    $query = "INSERT INTO deposit (membe_name,interest,savingamount,totaldeposite,memberid) VALUES('$user','$interest','$amount','$total_depo', '$memberid')";
+    $query_run = mysqli_query($connction, $query);
+       if ($query_run) {
             //echo "Saved";
             $_SESSION['success'] = "Saving Added";
             header('location:deposit.php');
@@ -175,6 +241,8 @@ $query = "SELECT totaldeposite  FROM deposit where memberid='$memberid' ";
 
 
 
+// ###########################################
+
 if (isset($_POST['application'])) {
     $memid = $_SESSION['username'];
 
@@ -186,7 +254,7 @@ if (isset($_POST['application'])) {
    
     $loan_type = $_POST['loan_type'];
     $payment_mode = $_POST['payment_mode'];
-    $amount = $_POST['amount'];
+    $amount = floatval($_POST['amount']);
     $duration = $_POST['duration'];
     $purpose = $_POST['purpose'];
     $status = $_POST['request'];
@@ -198,7 +266,7 @@ if (isset($_POST['application'])) {
    
     }
    
-    if (true) {
+    if ($amount != "" && $purpose != "") {
         $query = "INSERT INTO loan_list (username,loan_type,mode_of_payment,loan_amount,duration,total_to_pay,purpose,status,memberid) VALUES('$name','$loan_type','$payment_mode', '$amount', '$duration', '$total', '$purpose','$status','$memid')";
         $query_run = mysqli_query($connction, $query);
         if ($query_run) {
@@ -210,7 +278,7 @@ if (isset($_POST['application'])) {
             header('location:request_loan.php');
         }
     } else {
-        $_SESSION['status'] = "Password Does Not Match";
+        $_SESSION['status'] = "Plese feel the required form";
         header('location:request_loan.php');
     }
 }
@@ -221,13 +289,6 @@ if (isset($_POST['edit_btn'])) {
     $query = "SELECT * FROM register WHERE id='$id' ";
     $query_run = mysqli_query($connction, $query);
 }
-
-// if (isset($_POST['status_edit_btn'])) {
-//     $id = $_POST['edit_id'];
-
-//     $query = "SELECT * FROM loan_list WHERE id='$id' ";
-//     $query_run = mysqli_query($connction, $query);
-// }
 
 if (isset($_POST['loan_edit_btn'])) {
     $id = $_POST['edit_id'];
@@ -268,7 +329,39 @@ if (isset($_POST['user_updatebtn'])) {
 
     if ($query_run) {
         $_SESSION['success'] = "Your Data is Updated";
+        if($type == "user"){
+            header('location:user_home.php');
+        }
+        elseif ($type == "accountant"){
+            header('location:update_acc.php');
+        }
+    
+    } else {
+        $_SESSION['status'] = "Your Data is Not Updated";
         header('location:user_home.php');
+    }
+}
+
+if (isset($_POST['user_update_btn'])) {
+    $id = $_POST['edit_id'];
+    $username = $_POST['edit_username'];
+    $email = $_POST['edit_email'];
+    $password = $_POST['edit_password'];
+    $type = $_POST['edit_type'];
+
+
+    $query = "UPDATE user SET username='$username', email='$email', password='$password', type='$type' WHERE id='$id' ";
+    $query_run = mysqli_query($connction, $query);
+
+    if ($query_run) {
+        $_SESSION['success'] = "Your Data is Updated";
+        if($type == "user"){
+            header('location:user_home.php');
+        }
+        elseif ($type == "accountant"){
+            header('location:update_acc.php');
+        }
+    
     } else {
         $_SESSION['status'] = "Your Data is Not Updated";
         header('location:user_home.php');
@@ -311,41 +404,6 @@ $query_run = mysqli_query($connction, $query);
     
 }
 
-
-// ##########################################
-
-// if(isset($_POST['loan_status_btn'])){
-//     $memid = $_SESSION['username'];
-//     $query = "SELECT loan_amount from loan_list where memberid='$memid' "; 
-//     $query_run = mysqli_query($connction, $query);
-//     foreach ($query_run as $row) {
-//         $loan_amount = $row['loan_amount'];
-//         $loan_status = $row['status'];
-//     }
-
-//     $id = $_POST['edit_id'];
-//     // $status = $_POST['loan_status']; 
-//     $status = loan_status; 
-  
-//     if($status ="Approved"){
-
-//          $query = "SELECT totaldeposite from deposite where id='$id' ";   
-//         $query_run = mysqli_query($connction, $query);
-//         foreach ($query_run as $row) {
-//         $depo_add = $row['totaldeposite'];
-//     }
-
-//     $total = $total_depo + $depo_add;
-
-//         $query = "UPDATE deposite set totaldeposite='$total' where memberid='$memid'";   
-//         $query_run = mysqli_query($connction, $query);
-    
-//   }
-  
-// }
-
-// ###############################################
-
 if (isset($_POST['deletebtn'])) {
     $id = $_POST['delete_id'];
     $query = "DELETE FROM user WHERE id='$id' ";
@@ -356,6 +414,19 @@ if (isset($_POST['deletebtn'])) {
     } else {
         $_SESSION['status'] = "Your Data is  Not DELETED";
         header('location:manage_users.php');
+    }
+}
+
+if (isset($_POST['info_delete_btn'])) {
+    $id = $_POST['delete_id'];
+    $query = "DELETE FROM info WHERE id='$id' ";
+    $query_run = mysqli_query($connction, $query);
+    if ($query_run) {
+        $_SESSION['success'] = "News is DELETED";
+        header('location:info.php');
+    } else {
+        $_SESSION['status'] = "News is  Not DELETED";
+        header('location:info.php');
     }
 }
 
@@ -388,7 +459,11 @@ if (isset($_POST['login_btn'])) {
     } elseif ($usertypes['type'] == "user") {
         $_SESSION['username'] = $email_login;
         header('location: user_home.php');
-    } else {
+    } elseif ($usertypes['type'] == "accountant") {
+        $_SESSION['username'] = $email_login;
+        header('location: acc_page.php');
+    }
+     else {
         $_SESSION['status'] = 'Email id / Password is Invalid';
         header('location: login.php');
     }

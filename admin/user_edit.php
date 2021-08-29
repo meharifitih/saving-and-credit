@@ -10,7 +10,7 @@ include('includes/navbar.php');
     <!-- Data table -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">EDIT Admin profile</h6>
+            <h6 class="m-0 font-weight-bold text-primary">EDIT User profile</h6>
         </div>
 
 
@@ -52,14 +52,11 @@ include('includes/navbar.php');
                     <select name="edit_type" id="type" class="custom-select">
                         <option value="admin">Admin</option>
                         <option value="user">User</option>
+                        <option value="accountant">Accountant</option>
                     </select>
                 </div>
-
-
-
-
                 <a href="manage_users.php" class="btn btn-danger">Cancel</a>
-                <button type="submit" name="user_updatebtn" class="btn btn-primary">Update</button>
+                <button type="submit" name="user_update_btn" class="btn btn-primary">Update</button>
             </form>
 
             <?php

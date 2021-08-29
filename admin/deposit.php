@@ -2,7 +2,7 @@
 // session_start();
 include('security.php');
 include('includes/header.php'); 
-include('includes/navbar.php');
+include('includes/acc_navbar.php');
 ?>
 
 
@@ -11,9 +11,7 @@ include('includes/navbar.php');
         <form action="code.php" method="POST">
             <div class="card-header py-3">
                 <h4 class="card-header py-3">Add Deposite</h4>
-                <!-- <div class="card-header py-3">
-                    
-    <?php
+                <?php
     if (isset($_SESSION['success']) && $_SESSION['success'] != '') {
      echo '<h2 class="bg-primary text-white">' . $_SESSION['success'] . '</h2>';
     unset($_SESSION['success']);
@@ -24,8 +22,6 @@ include('includes/navbar.php');
     unset($_SESSION['status']);
     }
   ?>
-
-                </div> -->
                 <div class="card card-primary">
                     <div class="card-body">
                         <div class="row">

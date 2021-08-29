@@ -1,7 +1,7 @@
 <?php
 include('security.php');
 include('includes/header.php');
-include('includes/user_navbar.php');
+include('includes/acc_navbar.php');
 ?>
 
 <div class="container-fluid">
@@ -10,9 +10,18 @@ include('includes/user_navbar.php');
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">EDIT User profile</h6>
+            <?php
+    if (isset($_SESSION['success']) && $_SESSION['success'] != '') {
+     echo '<h2 class="bg-primary text-white">' . $_SESSION['success'] . '</h2>';
+    unset($_SESSION['success']);
+    }
+
+    if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
+    echo '<h2 class="bg-danger text-white">' . $_SESSION['status'] . '</h2>';
+    unset($_SESSION['status']);
+    }
+  ?>
         </div>
-
-
         <div class="card-body">
 
 
@@ -60,10 +69,6 @@ include('includes/user_navbar.php');
 
                     </select>
                 </div>
-
-
-
-
                 <button type="submit" name="user_updatebtn" class="btn btn-primary">Update</button>
             </form>
 

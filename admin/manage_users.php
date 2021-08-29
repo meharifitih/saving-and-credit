@@ -41,6 +41,7 @@ include('includes/navbar.php');
                         <select name="type" id="type" class="custom-select">
                             <option value="admin">Admin</option>
                             <option value="user">User</option>
+                            <option value="accountant">Accountant</option>
                         </select>
                     </div>
 

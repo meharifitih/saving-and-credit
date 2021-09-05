@@ -48,8 +48,6 @@ include('includes/navbar.php');
         </div>
 
 
-
-
         <!-- Pending Requests Card Example -->
         <div class="col-xl-6 col-md-6 mb-4">
             <div class="card border-left-warning shadow h-100 py-2">

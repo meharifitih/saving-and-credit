@@ -32,33 +32,26 @@
                <span>Users Profile </span></a>
        </li>
 
-       <!-- <li class="nav-item">
-           <a class="nav-link" href="deposit.php">
-
+       <li class="nav-item">
+           <a class="nav-link" href="loan_list.php">
                <i class="fas fa-fw fa-cog"></i>
-               <span>Deposite </span>
-           </a>
-       </li> -->
+               <span>Loans Requests </span></a>
+       </li>
 
        <li class="nav-item">
            <a class="nav-link" href="members_deposite.php">
 
-               <i class="fas fa-fw fa-cog"></i>
+               <!-- <i class="fas fa-fw fa-cog"></i> -->
+               <i class="fas fa-coins"></i>
                <span>Members Saving </span>
            </a>
        </li>
 
        <li class="nav-item">
-           <a class="nav-link" href="loan_list.php">
+           <a class="nav-link" href="info.php">
                <i class="fas fa-fw fa-cog"></i>
-               <span>Loans Request </span></a>
+               <span>Information Setting</span></a>
        </li>
-
-       <!-- <li class="nav-item">
-           <a class="nav-link" href="loan_payment.php">
-               <i class="fas fa-fw fa-cog"></i>
-               <span>Loans Payment </span></a>
-       </li> -->
 
        <li class="nav-item">
            <a class="nav-link" href="loan_plan.php">
@@ -73,9 +66,9 @@
        </li>
 
        <li class="nav-item">
-           <a class="nav-link" href="info.php">
+           <a class="nav-link" href="backup.php">
                <i class="fas fa-fw fa-cog"></i>
-               <span>Information Setting</span></a>
+               <span>Backup_DB</span></a>
        </li>
 
 

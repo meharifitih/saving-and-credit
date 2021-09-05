@@ -25,8 +25,8 @@ include('includes/user_navbar.php');
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Comment</label>
-                        <textarea type="text" class="form-control" name="comment"
-                            placeholder="Enter Comment"></textarea>
+                        <textarea type="text" class="form-control" name="comment" placeholder="Enter Comment"
+                            required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary" name="feedback_send">Send</button>
                 </div>

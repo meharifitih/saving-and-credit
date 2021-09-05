@@ -4,35 +4,28 @@ include('includes/header.php');
 include('includes/user_navbar.php');
 ?>
 
-
 <div class="card shadow mb-4">
     <div class="card card-primary">
-        <form action="code.php" method="POST">
+        <form id="form" action="code.php" method="POST">
             <div class="card-header py-3">
-
-                <?php
-    if (isset($_SESSION['success']) && $_SESSION['success'] != '') {
-     echo '<h2 class="bg-primary text-white">' . $_SESSION['success'] . '</h2>';
-    unset($_SESSION['success']);
-    }
-
-    if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-    echo '<h2 class="bg-danger text-white">' . $_SESSION['status'] . '</h2>';
-    unset($_SESSION['status']);
-    }
-  ?>
-
                 <h4 class="card-header py-3">Loan Application</h4>
                 <!-- <div class="card-header py-3">
                     
-
                 </div> -->
                 <div class="card card-primary">
+                    <?php
+                    if (isset($_SESSION['success']) && $_SESSION['success'] != '') {
+                    echo '<h2 class="bg-primary text-white">' . $_SESSION['success'] . '</h2>';
+                    unset($_SESSION['success']);
+                    }
+
+                    if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
+                    echo '<h2 class="bg-danger text-white">' . $_SESSION['status'] . '</h2>';
+                    unset($_SESSION['status']);
+                    }
+                    ?>
                     <div class="card-body">
                         <div class="row">
-
-
-
                             <div class="col-6">
 
                                 <?php
@@ -78,12 +71,12 @@ include('includes/user_navbar.php');
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Amount</label>
-                                    <input type="text" class="form-control" name="amount"
-                                        placeholder="Maximum 400,000,000">
+                                    <input id="amount" type="number" class="form-control" name="amount"
+                                        placeholder="Maximum amount is 400,000" required>
                                 </div>
                             </div>
 
-                            <div class="col-6">
+                            <div hidden class="col-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Request</label>
                                     <select name="request" class="form-control">
@@ -110,7 +103,7 @@ include('includes/user_navbar.php');
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Purpose</label>
                                     <textarea type="text" class="form-control" name="purpose"
-                                        placeholder="Enter the reason for loan .."></textarea>
+                                        placeholder="Enter the reason for loan .." required></textarea>
                                 </div>
                             </div>
 

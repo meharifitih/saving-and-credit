@@ -22,10 +22,10 @@ include('includes/navbar.php');
     unset($_SESSION['success']);
     }
 
-    if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
-    echo '<h2 class="bg-danger text-white">' . $_SESSION['status'] . '</h2>';
-    unset($_SESSION['status']);
-    }
+    // if (isset($_SESSION['status']) && $_SESSION['status'] != '') {
+    // echo '<h2 class="bg-danger text-white">' . $_SESSION['status'] . '</h2>';
+    // unset($_SESSION['status']);
+    // }
   ?>
 
             <div class="table-responsive">

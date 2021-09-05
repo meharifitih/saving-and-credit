@@ -32,11 +32,11 @@ include('includes/navbar.php');
                     </div>
                     <div class="form-group">
                         <label>interset</label>
-                        <input type="text" name="interest" class="form-control" placeholder="Enter Interest">
+                        <input type="text" name="interest" class="form-control" placeholder="Enter Interest" required>
                     </div>
                     <div class="form-group">
                         <label>penality</label>
-                        <input type="text" name="penality" class="form-control" placeholder="Enter Penality">
+                        <input type="text" name="penality" class="form-control" placeholder="Enter Penality" required>
                     </div>
                 </div>
                 <div class="modal-footer">

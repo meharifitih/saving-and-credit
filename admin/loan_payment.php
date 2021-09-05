@@ -59,7 +59,8 @@ include('includes/acc_navbar.php');
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Amount</label>
-                                    <input type="text" class="form-control" name="amount" placeholder="00.00">
+                                    <input type="number" class="form-control" name="amount" placeholder="00.00"
+                                        required>
                                 </div>
                             </div>
 

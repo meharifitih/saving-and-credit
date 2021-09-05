@@ -21,20 +21,21 @@ include('includes/navbar.php');
 
                     <div class="form-group">
                         <label> Username </label>
-                        <input type="text" name="username" class="form-control" placeholder="Enter Username">
+                        <input type="text" name="username" class="form-control" placeholder="Enter Username" required>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" name="email" class="form-control" placeholder="Enter Email">
+                        <input type="email" name="email" class="form-control" placeholder="Enter Email" required>
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Enter Password">
+                        <input type="password" name="password" class="form-control" placeholder="Enter Password"
+                            required>
                     </div>
                     <div class="form-group">
                         <label>Confirm Password</label>
                         <input type="password" name="confirmpassword" class="form-control"
-                            placeholder="Confirm Password">
+                            placeholder="Confirm Password" required>
                     </div>
                     <div class="form-group">
                         <label for="type">User Type</label>

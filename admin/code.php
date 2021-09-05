@@ -112,7 +112,7 @@ if (isset($_POST['loan_registerbtn'])) {
 if(isset($_POST['pay'])){
     $user = $_POST['user'];
     $amount = floatval($_POST['amount']);
-      $query = "SELECT *  FROM loan_list WHERE username='$user' ";
+    $query = "SELECT *  FROM loan_list WHERE username='$user' ";
     $query_run = mysqli_query($connction, $query);
     foreach ($query_run as $row) {
         $loan_id = $row['id'];
@@ -158,6 +158,40 @@ if(isset($_POST['pay'])){
     }
 
 }
+
+// ################################
+if(isset($_POST['withdarw'])){
+    $amount = floatval($_POST['amount']);
+    $email = $_SESSION['username'];
+
+     $query = "SELECT totaldeposite  FROM deposit where memberid='$email' ";
+    $query_run = mysqli_query($connction, $query);
+    foreach ($query_run as $row) {
+        $totaldeposite = $row['totaldeposite'];
+    }
+
+    if($amount != ""&& $amount != 0 && $totaldeposite >= $ $amount){
+
+        $remaning = $totaldeposite - $amount;
+        $query = "UPDATE deposit SET totaldeposite='$remaning'WHERE memberid='$email' ";
+        $query_run = mysqli_query($connction, $query);
+        
+        if ($query_run) {
+            $_SESSION['success'] = "Withdraw Successful";
+            header('location:withdraw.php');
+        } else {
+            $_SESSION['status'] = "Withdraw Not Successful";
+            header('location:withdraw.php');
+        }
+    } else {
+         $_SESSION['status'] = "Please enter amount";
+        header('location:withdraw.php');
+    }
+   
+
+}
+// ################################
+
 
 
 if (isset($_POST['add_saving'])) {
@@ -251,6 +285,13 @@ if (isset($_POST['application'])) {
     foreach ($query_run as $row) { 
         $name = $row['username'];
     }
+
+     $query = "SELECT *  FROM deposit WHERE memberid='$memid' ";
+    $query_run = mysqli_query($connction, $query);
+    foreach ($query_run as $row) { 
+        $totaldeposite = $row['totaldeposite'];
+        $ddate = $row['date'];
+    }
    
     $loan_type = $_POST['loan_type'];
     $payment_mode = $_POST['payment_mode'];
@@ -258,15 +299,21 @@ if (isset($_POST['application'])) {
     $duration = $_POST['duration'];
     $purpose = $_POST['purpose'];
     $status = $_POST['request'];
-    
+
     // correct loan calculayion
     for ($i=1; $i <= $duration; $i++) { 
         $int = $amount;
         $total = $int * pow(1.08, $i);
    
     }
-   
-    if ($amount != "" && $purpose != "") {
+
+    $now = time();
+    $then = strtotime($ddate);
+    $intval = ceil($now - $then)/86400;
+ 
+    
+  
+    if ($amount <= $totaldeposite * 6 && $amount <= 400000 && $intval >= 1) {
         $query = "INSERT INTO loan_list (username,loan_type,mode_of_payment,loan_amount,duration,total_to_pay,purpose,status,memberid) VALUES('$name','$loan_type','$payment_mode', '$amount', '$duration', '$total', '$purpose','$status','$memid')";
         $query_run = mysqli_query($connction, $query);
         if ($query_run) {
@@ -278,7 +325,7 @@ if (isset($_POST['application'])) {
             header('location:request_loan.php');
         }
     } else {
-        $_SESSION['status'] = "Plese feel the required form";
+        $_SESSION['status'] = "You can not apply for loan";
         header('location:request_loan.php');
     }
 }

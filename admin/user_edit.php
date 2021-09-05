@@ -35,17 +35,17 @@ include('includes/navbar.php');
                 <div class="form-group">
                     <label>User name</label>
                     <input type="text" class="form-control" value="<?php echo $row['username']; ?>" name="edit_username"
-                        placeholder="Enter Username">
+                        placeholder="Enter Username" required>
                 </div>
                 <div class="form-group">
                     <label>Email address</label>
                     <input type="email" class="form-control" value="<?php echo $row['email']; ?>" name="edit_email"
-                        placeholder="Enter email">
+                        placeholder="Enter email" required>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
                     <input type="password" class="form-control" value="<?php echo $row['password']; ?>"
-                        name="edit_password" placeholder="Password">
+                        name="edit_password" placeholder="Password" required>
                 </div>
                 <div class="form-group">
                     <label for="type">User Type</label>

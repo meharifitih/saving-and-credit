@@ -44,6 +44,13 @@
                <span>Check Balance </span></a>
        </li>
 
+
+       <li class="nav-item">
+           <a class="nav-link" href="Withdraw.php">
+               <i class="fas fa-fw fa-cog"></i>
+               <span>Withdraw Money</span></a>
+       </li>
+
        <li class="nav-item">
            <a class="nav-link" href="feedback.php">
                <i class="fas fa-fw fa-cog"></i>
@@ -52,7 +59,7 @@
 
        <li class="nav-item">
            <a class="nav-link" href="update_user.php">
-               <i class="fas fa-fw fa-cog"></i>
+               <i class="fas fa-user-cog"></i>
                <span> Update Profile </span></a>
        </li>
 
@@ -118,6 +125,7 @@
 
                            </span>
                        </a>
+
                        <!-- Dropdown - User Information -->
                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                            aria-labelledby="userDropdown">
